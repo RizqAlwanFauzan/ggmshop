@@ -31,14 +31,22 @@
                     </a>
                 </li>
                 <li class="nav-header">Manajemen Penerima</li>
-                <li class="nav-item {{ request()->routeIs('manajemen-penerima.departemen-bagian.bagian') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->routeIs('manajemen-penerima.departemen-bagian.bagian') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->routeIs(['manajemen-penerima.departemen-bagian.departemen', 'manajemen-penerima.departemen-bagian.bagian']) ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->routeIs(['manajemen-penerima.departemen-bagian.departemen', 'manajemen-penerima.departemen-bagian.bagian']) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-sitemap"></i>
                         <p>
                             Departemen & Bagian
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('manajemen-penerima.departemen-bagian.departemen') }}" class="nav-link {{ request()->routeIs('manajemen-penerima.departemen-bagian.departemen') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Departemen</p>
+                            </a>
+                        </li>
+                    </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('manajemen-penerima.departemen-bagian.bagian') }}" class="nav-link {{ request()->routeIs('manajemen-penerima.departemen-bagian.bagian') ? 'active' : '' }}">
