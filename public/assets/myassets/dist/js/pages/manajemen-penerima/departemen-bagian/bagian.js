@@ -4,7 +4,7 @@ $(function () {
         scrollCollapse: true,
         scrollY: '56.9vh',
         columnDefs: [{
-            targets: [3],
+            targets: [4],
             orderable: false,
             searchable: false
         }]
@@ -40,22 +40,23 @@ $(function () {
 
     const kirimData = (modalId, data) => {
         const modal = $(modalId);
-        const { id_bagian, kode, nama, deskripsi } = data;
+        const { id, kode, departemen_id, departemen, nama, deskripsi } = data;
         switch (modalId) {
             case '#modal-detail':
                 modal.find('#kode').text(kode);
-                modal.find('#nama').text(nama);
+                modal.find('#departemen').text(departemen.nama);
+                modal.find('#bagian').text(nama);
                 modal.find('#deskripsi').text(deskripsi || '-');
                 break;
             case '#modal-ubah':
-                modal.find('form').attr('action', url(`${request}${id_bagian}`));
-                modal.find('[name="id_bagian"]').val(id_bagian);
-                modal.find('[name="kode"]').val(kode);
+                modal.find('form').attr('action', url(`${request}${id}`));
+                modal.find('[name="id"]').val(id);
+                modal.find('[name="departemen_id"]').val(departemen_id);
                 modal.find('[name="nama"]').val(nama);
                 modal.find('[name="deskripsi"]').val(deskripsi);
                 break;
             case '#modal-hapus':
-                modal.find('form').attr('action', url(`${request}${id_bagian}`));
+                modal.find('form').attr('action', url(`${request}${id}`));
                 modal.find('#kode').text(kode);
                 break;
         }
@@ -76,7 +77,7 @@ $(function () {
 
     const modalUbah = $('#modal-ubah');
     if (modalUbah.find('.is-invalid').length) {
-        const id = modalUbah.find('[name="id_bagian"]').val();
+        const id = modalUbah.find('[name="id"]').val();
         modalUbah.find('form').attr('action', url(`${request}${id}`));
         setTimeout(() => modalUbah.modal('show'), 500);
     }

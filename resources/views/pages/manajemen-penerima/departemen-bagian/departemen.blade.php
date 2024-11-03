@@ -52,9 +52,9 @@
                                     <td class="text-center"><span class="badge badge-light">{{ $item->kode }}</span></td>
                                     <td>{{ $item->nama }}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-info btn-xs btn-menu" data-toggle="modal" data-target="#modal-detail" data-id="{{ $item->id_departemen }}"><i class="fas fa-eye"></i></button>
-                                        <button type="button" class="btn btn-warning btn-xs btn-menu text-white" data-toggle="modal" data-target="#modal-ubah" data-id="{{ $item->id_departemen }}"><i class="fas fa-edit"></i></button>
-                                        <button type="button" class="btn btn-danger btn-xs btn-menu" data-toggle="modal" data-target="#modal-hapus" data-id="{{ $item->id_departemen }}"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="button" class="btn btn-info btn-xs btn-menu" data-toggle="modal" data-target="#modal-detail" data-id="{{ $item->id }}"><i class="fas fa-eye"></i></button>
+                                        <button type="button" class="btn btn-warning btn-xs btn-menu text-white" data-toggle="modal" data-target="#modal-ubah" data-id="{{ $item->id }}"><i class="fas fa-edit"></i></button>
+                                        <button type="button" class="btn btn-danger btn-xs btn-menu" data-toggle="modal" data-target="#modal-hapus" data-id="{{ $item->id }}"><i class="fas fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -109,7 +109,7 @@
                 <form method="POST" enctype="multipart/form-data">
                     @method('put')
                     @csrf
-                    <input type="hidden" name="id_departemen" value="{{ $errors->hasBag('update') ? old('id_departemen') : '' }}">
+                    <input type="hidden" name="id" value="{{ $errors->hasBag('update') ? old('id') : '' }}">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="fg-11">Nama Departemen <span class="text-red">*</span></label>

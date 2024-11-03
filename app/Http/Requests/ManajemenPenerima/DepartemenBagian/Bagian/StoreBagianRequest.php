@@ -24,8 +24,9 @@ class StoreBagianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama'      => 'required|string|max:255|unique:bagian,nama',
-            'deskripsi' => 'nullable|string|max:500'
+            'departemen_id' => 'required|exists:departemen,id',
+            'nama'          => 'required|string|max:255|unique:bagian,nama',
+            'deskripsi'     => 'nullable|string|max:500'
         ];
     }
 
@@ -37,8 +38,9 @@ class StoreBagianRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'nama'      => 'nama bagian',
-            'deskripsi' => 'deskripsi'
+            'departemen_id' => 'nama departemen',
+            'nama'          => 'nama bagian',
+            'deskripsi'     => 'deskripsi'
         ];
     }
 }
