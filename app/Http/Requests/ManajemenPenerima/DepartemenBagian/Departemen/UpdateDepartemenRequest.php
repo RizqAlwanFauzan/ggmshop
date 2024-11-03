@@ -29,7 +29,7 @@ class UpdateDepartemenRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('departemen', 'nama')->ignore($this->route('departemen'), 'id_departemen')
+                Rule::unique('departemen', 'nama')->ignore($this->departemen->id)
             ],
             'deskripsi' => 'nullable|string|max:500'
         ];
