@@ -4,6 +4,12 @@
     </div>
 @endif
 
+@if (session('warning'))
+    <div class="d-none toastr" type="warning">
+        {{ session('warning') }}
+    </div>
+@endif
+
 @if ($errors->hasBag('store'))
     <div class="d-none toastr" type="error">
         Data gagal disimpan, peiksa inputan anda!
