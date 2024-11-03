@@ -40,7 +40,7 @@ $(function () {
 
     const kirimData = (modalId, data) => {
         const modal = $(modalId);
-        const { id_departemen, kode, nama, deskripsi } = data;
+        const { id, kode, nama, deskripsi } = data;
         switch (modalId) {
             case '#modal-detail':
                 modal.find('#kode').text(kode);
@@ -48,14 +48,13 @@ $(function () {
                 modal.find('#deskripsi').text(deskripsi || '-');
                 break;
             case '#modal-ubah':
-                modal.find('form').attr('action', url(`${request}${id_departemen}`));
-                modal.find('[name="id_departemen"]').val(id_departemen);
-                modal.find('[name="kode"]').val(kode);
+                modal.find('form').attr('action', url(`${request}${id}`));
+                modal.find('[name="id"]').val(id);
                 modal.find('[name="nama"]').val(nama);
                 modal.find('[name="deskripsi"]').val(deskripsi);
                 break;
             case '#modal-hapus':
-                modal.find('form').attr('action', url(`${request}${id_departemen}`));
+                modal.find('form').attr('action', url(`${request}${id}`));
                 modal.find('#kode').text(kode);
                 break;
         }
@@ -76,7 +75,7 @@ $(function () {
 
     const modalUbah = $('#modal-ubah');
     if (modalUbah.find('.is-invalid').length) {
-        const id = modalUbah.find('[name="id_departemen"]').val();
+        const id = modalUbah.find('[name="id"]').val();
         modalUbah.find('form').attr('action', url(`${request}${id}`));
         setTimeout(() => modalUbah.modal('show'), 500);
     }

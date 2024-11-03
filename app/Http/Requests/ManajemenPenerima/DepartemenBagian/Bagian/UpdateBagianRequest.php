@@ -25,13 +25,14 @@ class UpdateBagianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama'      => [
+            'departemen_id' => 'required|exists:departemen,id',
+            'nama'          => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('bagian', 'nama')->ignore($this->route('bagian'), 'id_bagian')
+                Rule::unique('bagian', 'nama')->ignore($this->bagian->id)
             ],
-            'deskripsi' => 'nullable|string|max:500'
+            'deskripsi'     => 'nullable|string|max:500'
         ];
     }
 
@@ -43,8 +44,9 @@ class UpdateBagianRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'nama'      => 'nama bagian',
-            'deskripsi' => 'deskripsi'
+            'departemen_id' => 'nama departemen',
+            'nama'          => 'nama bagian',
+            'deskripsi'     => 'deskripsi'
         ];
     }
 }

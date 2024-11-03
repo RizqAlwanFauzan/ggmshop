@@ -44,6 +44,10 @@ class DepartemenController extends Controller
 
     public function destroy(Departemen $departemen): RedirectResponse
     {
+        if ($departemen->bagian()->exists()) {
+            return redirect()->back()->with('warning', 'Data departemen tidak bisa dihapus karena digunakan pada bagian');
+        }
+
         $departemen->delete();
         return redirect()->back()->with('success', 'Data departemen berhasil dihapus');
     }
