@@ -56,6 +56,12 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('manajemen-penerima.status') }}" class="nav-link {{ request()->routeIs('manajemen-penerima.status') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user-clock"></i>
+                        <p>Status Penerima</p>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
