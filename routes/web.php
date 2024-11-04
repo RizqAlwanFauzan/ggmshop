@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManajemenPenerima\DepartemenBagian\DepartemenController;
 use App\Http\Controllers\ManajemenPenerima\DepartemenBagian\BagianController;
+use App\Http\Controllers\ManajemenPenerima\StatusController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -25,4 +26,10 @@ Route::prefix('manajemen-penerima')->name('manajemen-penerima.')->group(function
         Route::put('/bagian/{bagian}', [BagianController::class, 'update'])->name('bagian.update');
         Route::delete('/bagian/{bagian}', [BagianController::class, 'destroy'])->name('bagian.destroy');
     });
+
+    Route::get('/status', [StatusController::class, 'index'])->name('status');
+    Route::get('/status/{status}', [StatusController::class, 'show'])->name('status.show');
+    Route::post('/status', [StatusController::class, 'store'])->name('status.store');
+    Route::put('/status/{status}', [StatusController::class, 'update'])->name('status.update');
+    Route::delete('/status/{status}', [StatusController::class, 'destroy'])->name('status.destroy');
 });
