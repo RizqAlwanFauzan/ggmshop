@@ -46,7 +46,7 @@ $(function () {
                 modal.find('#nip').text(nip);
                 modal.find('#nik').text(nik);
                 modal.find('#nama').text(nama);
-                modal.find('#nomor-telepon').text(nomor_telepon || '-');
+                modal.find('#nomor_telepon').text(nomor_telepon || '-');
                 modal.find('#alamat').text(alamat);
                 break;
             case '#modal-ubah':
