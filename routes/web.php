@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManajemenPenerima\DepartemenBagian\DepartemenController;
 use App\Http\Controllers\ManajemenPenerima\DepartemenBagian\BagianController;
+use App\Http\Controllers\ManajemenPenerima\PenerimaController;
 use App\Http\Controllers\ManajemenPenerima\StatusController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::prefix('manajemen-penerima')->name('manajemen-penerima.')->group(function () {
+    Route::get('/penerima', [PenerimaController::class, 'index'])->name('penerima');
+    Route::get('/penerima/{penerima}', [PenerimaController::class, 'show'])->name('penerima.show');
+    Route::post('/penerima', [PenerimaController::class, 'store'])->name('penerima.store');
+    Route::put('/penerima/{penerima}', [PenerimaController::class, 'update'])->name('penerima.update');
+    Route::delete('/penerima/{penerima}', [PenerimaController::class, 'destroy'])->name('penerima.destroy');
+
     Route::prefix('departemen-bagian')->name('departemen-bagian.')->group(function () {
         Route::get('/departemen', [DepartemenController::class, 'index'])->name('departemen');
         Route::get('/departemen/{departemen}', [DepartemenController::class, 'show'])->name('departemen.show');
