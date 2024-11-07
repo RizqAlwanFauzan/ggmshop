@@ -11,6 +11,11 @@ $(function () {
     };
 
     const dataTable = $("#table-penerima").DataTable(konfigurasiDataTable);
+
+    $(document).on('click', 'a[href="#collapseTwo"]', function () {
+        dataTable.columns.adjust().draw();
+    });
+
     const request = '/manajemen-penerima/penerima/';
     const cache = {};
 
