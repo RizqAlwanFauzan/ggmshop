@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bagian extends Model
 {
@@ -23,5 +24,10 @@ class Bagian extends Model
     public function departemen(): BelongsTo
     {
         return $this->belongsTo(Departemen::class);
+    }
+
+    public function penerima(): HasMany
+    {
+        return $this->hasMany(Penerima::class);
     }
 }

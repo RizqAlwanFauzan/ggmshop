@@ -14,7 +14,7 @@
                         @csrf
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label for="fg-01">NIP <span class="text-red">*</span></label>
                                         <input type="number" class="form-control @error('nip', 'store') is-invalid @enderror"" id="fg-01" name="nip" value="{{ $errors->hasBag('store') ? old('nip') : '' }}" placeholder="Isikan NIP penerima">
@@ -29,8 +29,6 @@
                                             <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="fg-03">Nama <span class="text-red">*</span></label>
                                         <input type="text" class="form-control @error('nama', 'store') is-invalid @enderror"" id="fg-03" name="nama" value="{{ $errors->hasBag('store') ? old('nama') : '' }}" placeholder="Isikan nama penerima">
@@ -38,18 +36,56 @@
                                             <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <label for="fg-04">Nomor Telepon</label>
-                                        <input type="number" class="form-control @error('nomor_telepon', 'store') is-invalid @enderror"" id="fg-04" name="nomor_telepon" value="{{ $errors->hasBag('store') ? old('nomor_telepon') : '' }}" placeholder="Isikan nomor telepon penerima">
-                                        @error('nomor_telepon', 'store')
+                                        <label for="fg-04">Departemen <span class="text-red">*</span></label>
+                                        <select class="form-control @error('departemen_id', 'store') is-invalid @enderror" id="fg-04" name="departemen_id">
+                                            <option value="">-- Pilih --</option>
+                                            @foreach ($departemen as $id => $nama)
+                                                <option value="{{ $id }}" {{ $errors->hasBag('store') && old('departemen_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('departemen_id', 'store')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fg-05">Bagian</label>
+                                        <select class="form-control @error('bagian_id', 'store') is-invalid @enderror" id="fg-05" name="bagian_id">
+                                            <option value="">-- Pilih --</option>
+                                            @foreach ($bagian as $id => $nama)
+                                                <option value="{{ $id }}" {{ $errors->hasBag('store') && old('bagian_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('bagian_id', 'store')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fg-06">Status <span class="text-red">*</span></label>
+                                        <select class="form-control @error('status_id', 'store') is-invalid @enderror" id="fg-06" name="status_id">
+                                            <option value="">-- Pilih --</option>
+                                            @foreach ($status as $id => $nama)
+                                                <option value="{{ $id }}" {{ $errors->hasBag('store') && old('status_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('status_id', 'store')
                                             <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="fg-05">Alamat <span class="text-red">*</span></label>
-                                <textarea class="form-control @error('alamat', 'store') is-invalid @enderror" id="fg-05" name="alamat" rows="3" placeholder="Isikan alamat penerima">{{ $errors->hasBag('store') ? old('alamat') : '' }}</textarea>
+                                <label for="fg-07">Nomor Telepon</label>
+                                <input type="number" class="form-control @error('nomor_telepon', 'store') is-invalid @enderror"" id="fg-07" name="nomor_telepon" value="{{ $errors->hasBag('store') ? old('nomor_telepon') : '' }}" placeholder="Isikan nomor telepon penerima">
+                                @error('nomor_telepon', 'store')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="fg-08">Alamat <span class="text-red">*</span></label>
+                                <textarea class="form-control @error('alamat', 'store') is-invalid @enderror" id="fg-08" name="alamat" rows="3" placeholder="Isikan alamat penerima">{{ $errors->hasBag('store') ? old('alamat') : '' }}</textarea>
                                 @error('alamat', 'store')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
@@ -128,6 +164,18 @@
                             <p id="nama" class="m-0"></p>
                         </li>
                         <li class="list-group-item">
+                            <strong class="text-muted"><i class="fas fa-sitemap mr-1"></i> Departemen</strong>
+                            <p id="departemen" class="m-0"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-muted"><i class="far fa-stop-circle mr-1"></i> Bagian</strong>
+                            <p id="bagian" class="m-0"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-muted"><i class="fas fa-user-clock mr-1"></i> Status</strong>
+                            <p id="status" class="m-0"></p>
+                        </li>
+                        <li class="list-group-item">
                             <strong class="text-muted"><i class="fas fa-phone-alt mr-1"></i> Nomor Telepon</strong>
                             <p id="nomor_telepon" class="m-0"></p>
                         </li>
@@ -180,15 +228,51 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="fg-14">Nomor Telepon</label>
-                            <input type="number" class="form-control @error('nomor_telepon', 'update') is-invalid @enderror"" id="fg-14" name="nomor_telepon" value="{{ $errors->hasBag('update') ? old('nomor_telepon') : '' }}" placeholder="Isikan nomor telepon penerima">
+                            <label for="fg-14">Departemen <span class="text-red">*</span></label>
+                            <select class="form-control @error('departemen_id', 'update') is-invalid @enderror" id="fg-14" name="departemen_id">
+                                <option value="">-- Pilih --</option>
+                                @foreach ($departemen as $id => $nama)
+                                    <option value="{{ $id }}" {{ $errors->hasBag('update') && old('departemen_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('departemen_id', 'update')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="fg-15">Bagian</label>
+                            <select class="form-control @error('bagian_id', 'update') is-invalid @enderror" id="fg-15" name="bagian_id">
+                                <option value="">-- Pilih --</option>
+                                @foreach ($bagian as $id => $nama)
+                                    <option value="{{ $id }}" {{ $errors->hasBag('update') && old('bagian_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('bagian_id', 'update')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="fg-16">Status <span class="text-red">*</span></label>
+                            <select class="form-control @error('status_id', 'update') is-invalid @enderror" id="fg-16" name="status_id">
+                                <option value="">-- Pilih --</option>
+                                @foreach ($status as $id => $nama)
+                                    <option value="{{ $id }}" {{ $errors->hasBag('update') && old('status_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('status_id', 'update')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="fg-17">Nomor Telepon</label>
+                            <input type="number" class="form-control @error('nomor_telepon', 'update') is-invalid @enderror"" id="fg-17" name="nomor_telepon" value="{{ $errors->hasBag('update') ? old('nomor_telepon') : '' }}" placeholder="Isikan nomor telepon penerima">
                             @error('nomor_telepon', 'update')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="fg-15">Alamat <span class="text-red">*</span></label>
-                            <textarea class="form-control @error('alamat', 'update') is-invalid @enderror" id="fg-15" name="alamat" rows="3" placeholder="Isikan alamat penerima">{{ $errors->hasBag('update') ? old('alamat') : '' }}</textarea>
+                            <label for="fg-18">Alamat <span class="text-red">*</span></label>
+                            <textarea class="form-control @error('alamat', 'update') is-invalid @enderror" id="fg-18" name="alamat" rows="3" placeholder="Isikan alamat penerima">{{ $errors->hasBag('update') ? old('alamat') : '' }}</textarea>
                             @error('alamat', 'update')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror

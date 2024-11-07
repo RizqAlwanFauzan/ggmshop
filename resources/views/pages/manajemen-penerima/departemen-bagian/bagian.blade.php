@@ -13,7 +13,7 @@
                             <select class="form-control @error('departemen_id', 'store') is-invalid @enderror" id="fg-01" name="departemen_id">
                                 <option value="">-- Pilih --</option>
                                 @foreach ($departemen as $id => $nama)
-                                    <option value="{{ $id }}" {{ $errors->hasBag('store') && old('departemen_id') === $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                    <option value="{{ $id }}" {{ $errors->hasBag('store') && old('departemen_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
                                 @endforeach
                             </select>
                             @error('departemen_id', 'store')
@@ -134,7 +134,7 @@
                             <select class="form-control @error('departemen_id', 'update') is-invalid @enderror" id="fg-11" name="departemen_id">
                                 <option value="">-- Pilih --</option>
                                 @foreach ($departemen as $id => $nama)
-                                    <option value="{{ $id }}" {{ $errors->hasBag('update') && old('departemen_id') === $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                    <option value="{{ $id }}" {{ $errors->hasBag('update') && old('departemen_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
                                 @endforeach
                             </select>
                             @error('departemen_id', 'update')

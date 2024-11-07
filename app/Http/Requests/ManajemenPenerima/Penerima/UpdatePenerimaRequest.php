@@ -38,6 +38,9 @@ class UpdatePenerimaRequest extends FormRequest
                 Rule::unique('penerima', 'nik')->ignore($this->penerima->id)
             ],
             'nama'          => 'required|string|max:255',
+            'departemen_id' => 'required|exists:departemen,id',
+            'bagian_id'     => 'nullable|exists:bagian,id',
+            'status_id'     => 'required|exists:status,id',
             'nomor_telepon' => 'nullable|string|max:15',
             'alamat'        => 'required|string|max:500'
         ];
@@ -54,6 +57,9 @@ class UpdatePenerimaRequest extends FormRequest
             'nip'           => 'NIP',
             'nik'           => 'NIK',
             'nama'          => 'nama penerima',
+            'departemen_id' => 'departemen',
+            'bagian_id'     => 'bagian',
+            'status_id'     => 'status',
             'nomor_telepon' => 'nomor telepon',
             'alamat'        => 'alamat'
         ];

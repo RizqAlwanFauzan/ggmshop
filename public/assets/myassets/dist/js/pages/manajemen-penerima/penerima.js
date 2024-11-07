@@ -45,12 +45,15 @@ $(function () {
 
     const kirimData = (modalId, data) => {
         const modal = $(modalId);
-        const { id, nip, nik, nama, nomor_telepon, alamat } = data;
+        const { id, nip, nik, nama, departemen_id, departemen, bagian_id, bagian, status_id, status, nomor_telepon, alamat } = data;
         switch (modalId) {
             case '#modal-detail':
                 modal.find('#nip').text(nip);
                 modal.find('#nik').text(nik);
                 modal.find('#nama').text(nama);
+                modal.find('#departemen').text(departemen?.nama);
+                modal.find('#bagian').text(bagian?.nama || '-');
+                modal.find('#status').text(status?.nama);
                 modal.find('#nomor_telepon').text(nomor_telepon || '-');
                 modal.find('#alamat').text(alamat);
                 break;
@@ -60,6 +63,9 @@ $(function () {
                 modal.find('[name="nip"]').val(nip);
                 modal.find('[name="nik"]').val(nik);
                 modal.find('[name="nama"]').val(nama);
+                modal.find('[name="departemen_id"]').val(departemen_id);
+                modal.find('[name="bagian_id"]').val(bagian_id);
+                modal.find('[name="status_id"]').val(status_id);
                 modal.find('[name="nomor_telepon"]').val(nomor_telepon);
                 modal.find('[name="alamat"]').val(alamat);
                 break;
