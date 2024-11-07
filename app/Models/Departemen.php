@@ -24,4 +24,9 @@ class Departemen extends Model
     {
         return $this->hasMany(Bagian::class);
     }
+
+    public function penerima(): HasMany
+    {
+        return $this->hasMany(Penerima::class);
+    }
 }

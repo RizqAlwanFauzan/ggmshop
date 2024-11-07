@@ -44,7 +44,7 @@ $(function () {
         switch (modalId) {
             case '#modal-detail':
                 modal.find('#kode').text(kode);
-                modal.find('#departemen').text(departemen.nama);
+                modal.find('#departemen').text(departemen?.nama);
                 modal.find('#bagian').text(nama);
                 modal.find('#deskripsi').text(deskripsi || '-');
                 break;

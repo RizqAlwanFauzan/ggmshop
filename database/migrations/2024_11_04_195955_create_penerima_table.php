@@ -16,6 +16,18 @@ return new class extends Migration
             $table->string('nip', 14)->unique();
             $table->string('nik', 16)->unique();
             $table->string('nama', 255);
+            $table->foreignId('departemen_id')->constrained(
+                table: 'departemen',
+                indexName: 'penerima_departemen_id'
+            );
+            $table->foreignId('bagian_id')->nullable()->constrained(
+                table: 'bagian',
+                indexName: 'penerima_bagian_id'
+            );
+            $table->foreignId('status_id')->constrained(
+                table: 'status',
+                indexName: 'penerima_status_id'
+            );
             $table->string('nomor_telepon', 15)->nullable();
             $table->text('alamat');
             $table->timestamps();
