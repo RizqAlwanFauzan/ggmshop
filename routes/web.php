@@ -20,6 +20,7 @@ Route::prefix('manajemen-penerima')->name('manajemen-penerima.')->group(function
     Route::post('/penerima', [PenerimaController::class, 'store'])->name('penerima.store');
     Route::put('/penerima/{penerima}', [PenerimaController::class, 'update'])->name('penerima.update');
     Route::delete('/penerima/{penerima}', [PenerimaController::class, 'destroy'])->name('penerima.destroy');
+    Route::get('/bagian-by-departemen/{departemen}', [PenerimaController::class, 'getBagianByDepartemen'])->name('bagian.by.departemen');
 
     Route::prefix('departemen-bagian')->name('departemen-bagian.')->group(function () {
         Route::get('/departemen', [DepartemenController::class, 'index'])->name('departemen');
