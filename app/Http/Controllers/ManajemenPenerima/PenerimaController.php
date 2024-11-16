@@ -19,15 +19,17 @@ class PenerimaController extends Controller
     {
         $penerima   = Penerima::orderBy('updated_at', 'desc')->get();
         $departemen = Departemen::orderBy('updated_at', 'desc')->pluck('nama', 'id');
-        $bagian     = Bagian::orderBy('updated_at', 'desc')->pluck('nama', 'id');
         $status     = Status::orderBy('updated_at', 'desc')->pluck('nama', 'id');
-        $data     = [
+        $data       = [
             'title'      => 'Penerima',
             'penerima'   => $penerima,
             'departemen' => $departemen,
-            'bagian'     => $bagian,
             'status'     => $status
         ];
+
+        if (old('departemen_id')) {
+            $data['bagian'] = Bagian::where('departemen_id', old('departemen_id'))->orderBy('updated_at', 'desc')->pluck('nama', 'id');
+        }
 
         return view('pages.manajemen-penerima.penerima', $data);
     }
@@ -58,5 +60,11 @@ class PenerimaController extends Controller
     {
         $penerima->delete();
         return redirect()->back()->with('success', 'Data penerima berhasil dihapus');
+    }
+
+    public function getBagianByDepartemen(Departemen $departemen): JsonResponse
+    {
+        $bagian = $departemen->bagian()->orderBy('updated_at', 'desc')->pluck('nama', 'id');
+        return response()->json($bagian);
     }
 }

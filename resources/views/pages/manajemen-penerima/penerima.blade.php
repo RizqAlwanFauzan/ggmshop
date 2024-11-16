@@ -52,11 +52,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="fg-05">Bagian</label>
-                                        <select class="form-control @error('bagian_id', 'store') is-invalid @enderror" id="fg-05" name="bagian_id">
-                                            <option value="">-- Pilih --</option>
-                                            @foreach ($bagian as $id => $nama)
-                                                <option value="{{ $id }}" {{ $errors->hasBag('store') && old('bagian_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
-                                            @endforeach
+                                        <select class="form-control @error('bagian_id', 'store') is-invalid @enderror" id="fg-05" name="bagian_id" {{ $errors->hasBag('store') && isset($bagian) && $bagian->isNotEmpty() ? '' : 'disabled' }}>
+                                            <option value="">{{ $errors->hasBag('store') && isset($bagian) && $bagian->isEmpty() ? 'Tidak ada bagian' : '-- Pilih --' }}</option>
+                                            @if ($errors->hasBag('store') && isset($bagian))
+                                                @foreach ($bagian as $id => $nama)
+                                                    <option value="{{ $id }}" {{ $errors->hasBag('store') && old('bagian_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         @error('bagian_id', 'store')
                                             <span class="invalid-feedback">{{ $message }}</span>
@@ -241,11 +243,13 @@
                         </div>
                         <div class="form-group">
                             <label for="fg-15">Bagian</label>
-                            <select class="form-control @error('bagian_id', 'update') is-invalid @enderror" id="fg-15" name="bagian_id">
-                                <option value="">-- Pilih --</option>
-                                @foreach ($bagian as $id => $nama)
-                                    <option value="{{ $id }}" {{ $errors->hasBag('update') && old('bagian_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
-                                @endforeach
+                            <select class="form-control @error('bagian_id', 'update') is-invalid @enderror" id="fg-15" name="bagian_id" {{ $errors->hasBag('update') && isset($bagian) && $bagian->isNotEmpty() ? '' : 'disabled' }}>
+                                <option value="">{{ $errors->hasBag('update') && isset($bagian) && $bagian->isEmpty() ? 'Tidak ada bagian' : '-- Pilih --' }}</option>
+                                @if ($errors->hasBag('update') && isset($bagian))
+                                    @foreach ($bagian as $id => $nama)
+                                        <option value="{{ $id }}" {{ $errors->hasBag('update') && old('bagian_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                             @error('bagian_id', 'update')
                                 <span class="invalid-feedback">{{ $message }}</span>
