@@ -3,22 +3,36 @@
         <div class="col-12 col-md-4">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Tambah Kategori</h3>
+                    <h3 class="card-title">Tambah Supplier</h3>
                 </div>
-                <form action="{{ route('manajemen-produk-supplier.produk.kategori') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('manajemen-produk-supplier.supplier') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="fg-01">Nama Kategori <span class="text-red">*</span></label>
-                            <input type="text" class="form-control @error('nama', 'store') is-invalid @enderror"" id="fg-01" name="nama" value="{{ $errors->hasBag('store') ? old('nama') : '' }}" placeholder="Isikan nama kategori">
+                            <label for="fg-01">Nama Supplier <span class="text-red">*</span></label>
+                            <input type="text" class="form-control @error('nama', 'store') is-invalid @enderror"" id="fg-01" name="nama" value="{{ $errors->hasBag('store') ? old('nama') : '' }}" placeholder="Isikan nama supplier">
                             @error('nama', 'store')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="fg-02">Deskripsi</label>
-                            <textarea class="form-control @error('deskripsi', 'store') is-invalid @enderror" id="fg-02" name="deskripsi" rows="3" placeholder="Isikan deskripsi">{{ $errors->hasBag('store') ? old('deskripsi') : '' }}</textarea>
-                            @error('deskripsi', 'store')
+                            <label for="fg-02">Email</label>
+                            <input type="text" class="form-control @error('email', 'store') is-invalid @enderror"" id="fg-02" name="email" value="{{ $errors->hasBag('store') ? old('email') : '' }}" placeholder="Isikan email">
+                            @error('email', 'store')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="fg-03">Nomor Telepon <span class="text-red">*</span></label>
+                            <input type="number" class="form-control @error('nomor_telepon', 'store') is-invalid @enderror"" id="fg-03" name="nomor_telepon" value="{{ $errors->hasBag('store') ? old('nomor_telepon') : '' }}" placeholder="Isikan nomor telepon">
+                            @error('nomor_telepon', 'store')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="fg-04">Alamat <span class="text-red">*</span></label>
+                            <textarea class="form-control @error('alamat', 'store') is-invalid @enderror" id="fg-04" name="alamat" rows="3" placeholder="Isikan alamat">{{ $errors->hasBag('store') ? old('alamat') : '' }}</textarea>
+                            @error('alamat', 'store')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
@@ -33,20 +47,20 @@
         <div class="col-12 col-md-8">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Daftar Kategori</h3>
+                    <h3 class="card-title">Daftar Supplier</h3>
                 </div>
                 <div class="card-body">
-                    <table id="table-kategori" class="table-striped table-bordered table-hover nowrap table-dark table" style="width:100%">
+                    <table id="table-supplier" class="table-striped table-bordered table-hover nowrap table-dark table" style="width:100%">
                         <thead>
                             <tr class="text-center">
                                 <th>No</th>
                                 <th>Kode</th>
-                                <th>Kategori</th>
+                                <th>Supplier</th>
                                 <th>Menu</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kategori as $item)
+                            @foreach ($supplier as $item)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center"><span class="badge badge-light">{{ $item->kode }}</span></td>
@@ -69,7 +83,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Detail Kategori</h4>
+                    <h4 class="modal-title">Detail Supplier</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -81,12 +95,20 @@
                             <p id="kode" class="m-0"></p>
                         </li>
                         <li class="list-group-item">
-                            <strong class="text-muted"><i class="fas fa-box-open mr-1"></i> Nama</strong>
+                            <strong class="text-muted"><i class="fas fa-truck mr-1"></i> Nama</strong>
                             <p id="nama" class="m-0"></p>
                         </li>
                         <li class="list-group-item">
-                            <strong class="text-muted"><i class="fas fa-file-alt mr-1"></i> Deskripsi</strong>
-                            <p id="deskripsi" class="m-0"></p>
+                            <strong class="text-muted"><i class="fas fa-envelope mr-1"></i> Email</strong>
+                            <p id="email" class="m-0"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-muted"><i class="fas fa-phone-alt mr-1"></i> Nomor Telepon</strong>
+                            <p id="nomor_telepon" class="m-0"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-muted"><i class="fas fa-map-marked-alt mr-1"></i> Alamat</strong>
+                            <p id="alamat" class="m-0"></p>
                         </li>
                     </ul>
                 </div>
@@ -101,7 +123,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ubah Data Kategori</h4>
+                    <h4 class="modal-title">Ubah Data Supplier</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -112,16 +134,30 @@
                     <input type="hidden" name="id" value="{{ $errors->hasBag('update') ? old('id') : '' }}">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="fg-11">Nama Kategori <span class="text-red">*</span></label>
-                            <input type="text" class="form-control @error('nama', 'update') is-invalid @enderror"" id="fg-11" name="nama" value="{{ $errors->hasBag('update') ? old('nama') : '' }}" placeholder="Isikan nama kategori">
+                            <label for="fg-11">Nama Supplier <span class="text-red">*</span></label>
+                            <input type="text" class="form-control @error('nama', 'update') is-invalid @enderror"" id="fg-11" name="nama" value="{{ $errors->hasBag('update') ? old('nama') : '' }}" placeholder="Isikan nama supplier">
                             @error('nama', 'update')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="fg-12">Deskripsi</label>
-                            <textarea class="form-control @error('deskripsi', 'update') is-invalid @enderror" id="fg-12" name="deskripsi" rows="3" placeholder="Isikan deskripsi">{{ $errors->hasBag('update') ? old('deskripsi') : '' }}</textarea>
-                            @error('deskripsi', 'update')
+                            <label for="fg-12">Email</label>
+                            <input type="text" class="form-control @error('email', 'update') is-invalid @enderror"" id="fg-12" name="email" value="{{ $errors->hasBag('update') ? old('email') : '' }}" placeholder="Isikan email">
+                            @error('email', 'update')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="fg-13">Nomor Telepon <span class="text-red">*</span></label>
+                            <input type="number" class="form-control @error('nomor_telepon', 'update') is-invalid @enderror"" id="fg-13" name="nomor_telepon" value="{{ $errors->hasBag('update') ? old('nomor_telepon') : '' }}" placeholder="Isikan nomor telepon">
+                            @error('nomor_telepon', 'update')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="fg-14">Alamat <span class="text-red">*</span></label>
+                            <textarea class="form-control @error('alamat', 'update') is-invalid @enderror" id="fg-14" name="alamat" rows="3" placeholder="Isikan alamat">{{ $errors->hasBag('update') ? old('alamat') : '' }}</textarea>
+                            @error('alamat', 'update')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
@@ -139,7 +175,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Hapus Data Kategori</h4>
+                    <h4 class="modal-title">Hapus Data Supplier</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -148,7 +184,7 @@
                     @method('delete')
                     @csrf
                     <div class="modal-body">
-                        <p class="m-0 text-center">Apakah anda yakin untuk menghapus data kategori dengan kode <span id="kode" class="text-bold"></span>?</p>
+                        <p class="m-0 text-center">Apakah anda yakin untuk menghapus data supplier dengan kode <span id="kode" class="text-bold"></span>?</p>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> Tidak</button>
@@ -160,6 +196,6 @@
     </div>
 
     @section('js')
-        <script src="{{ asset('assets/myassets/dist/js/pages/manajemen-produk-supplier/produk/kategori.js') }}"></script>
+        <script src="{{ asset('assets/myassets/dist/js/pages/manajemen-produk-supplier/supplier.js') }}"></script>
     @endsection
 </x-layouts.app>

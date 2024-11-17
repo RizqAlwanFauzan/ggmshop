@@ -65,7 +65,7 @@
                 <li class="nav-item">
                     <a href="{{ route('manajemen-penerima.status') }}" class="nav-link {{ request()->routeIs('manajemen-penerima.status') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-clock"></i>
-                        <p>Status Penerima</p>
+                        <p>Status</p>
                     </a>
                 </li>
                 <li class="nav-header">Manajemen Produk & Supplier</li>
@@ -85,6 +85,12 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('manajemen-produk-supplier.supplier') }}" class="nav-link {{ request()->routeIs('manajemen-produk-supplier.supplier') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-truck"></i>
+                        <p>Supplier</p>
+                    </a>
                 </li>
             </ul>
         </nav>
