@@ -18,22 +18,11 @@ $(function () {
         dataTable.columns.adjust().draw();
     });
 
-    $(document).on('click', '[data-target="#modal-detail"]', function () {
+    $(document).on('click', '[data-target^="#modal-"]', function () {
         const id = $(this).data('id');
-        const modalId = '#modal-detail';
-        modalAmbilData(id, modalId, kirimDataDetail);
-    });
-
-    $(document).on('click', '[data-target="#modal-ubah"]', function () {
-        const id = $(this).data('id');
-        const modalId = '#modal-ubah';
-        modalAmbilData(id, modalId, kirimDataUbah);
-    });
-
-    $(document).on('click', '[data-target="#modal-hapus"]', function () {
-        const id = $(this).data('id');
-        const modalId = '#modal-hapus';
-        modalAmbilData(id, modalId, kirimDataHapus);
+        const modalId = $(this).data('target');
+        tampilkanLoading(modalId);
+        ambilData(requestCRUD, id, (response) => isiModal(modalId, response), () => tampilkanError(modalId), () => hilangkanLoading(modalId));
     });
 
     $(document).on('change', '[name="departemen_id"]', function () {
@@ -53,62 +42,56 @@ $(function () {
         }
     });
 
-    $(document).on('hide.bs.modal', '.modal', function () {
-        setTimeout(() => $(this).find('.is-invalid').removeClass('is-invalid'), 500);
-    });
-
     $(document).on('reset', 'form', function () {
         $(this).find('[name="bagian_id"]').prop('disabled', true).html('<option value="">-- Pilih --</option>');
     });
-
-    const modalAmbilData = (id, modalId, callback) => {
-        tampilkanLoading(modalId);
-        ambilData(requestCRUD, id, (response) => callback(response, modalId), () => tampilkanError(modalId), () => hilangkanLoading(modalId));
-    };
 
     const ambilData = (request, key, callbackSuccess, callbackError = null, callbackComplete = null) => {
         $.ajax({
             url: url(`${request}${key}`),
             type: 'GET',
             success: (response) => callbackSuccess(response),
-            error: () => callbackError && callbackError(),
-            complete: () => callbackComplete && callbackComplete()
+            error: () => callbackError?.(),
+            complete: () => callbackComplete?.()
         });
     };
 
-    const kirimDataDetail = (response, modalId) => {
+    const isiModal = (modalId, response) => {
         const modal = $(modalId);
-        modal.find('#nip').text(response.nip);
-        modal.find('#nik').text(response.nik);
-        modal.find('#nama').text(response.nama);
-        modal.find('#departemen').text(response.departemen?.nama);
-        modal.find('#bagian').text(response.bagian?.nama || '-');
-        modal.find('#status').text(response.status?.nama);
-        modal.find('#nomor_telepon').text(response.nomor_telepon || '-');
-        modal.find('#alamat').text(response.alamat);
-    };
+        const { id, nip, nik, nama, departemen_id, departemen, bagian_id, bagian, status_id, status, nomor_telepon, alamat } = response;
+        const actions = {
+            '#modal-detail': () => {
+                modal.find('#nip').text(nip);
+                modal.find('#nik').text(nik);
+                modal.find('#nama').text(nama);
+                modal.find('#departemen').text(departemen?.nama);
+                modal.find('#bagian').text(bagian?.nama || '-');
+                modal.find('#status').text(status?.nama);
+                modal.find('#nomor_telepon').text(nomor_telepon || '-');
+                modal.find('#alamat').text(alamat);
+            },
+            '#modal-ubah': () => {
+                modal.find('form').attr('action', url(`${requestCRUD}${id}`));
+                modal.find('[name="id"]').val(id);
+                modal.find('[name="nip"]').val(nip);
+                modal.find('[name="nik"]').val(nik);
+                modal.find('[name="nama"]').val(nama);
+                modal.find('[name="departemen_id"]').val(departemen_id);
+                ambilData(requestBagian, departemen_id, (bagianResponse) => {
+                    kirimDataBagian(bagianResponse, modal.find('[name="bagian_id"]'));
+                    modal.find('[name="bagian_id"]').val(bagian_id);
+                });
+                modal.find('[name="status_id"]').val(status_id);
+                modal.find('[name="nomor_telepon"]').val(nomor_telepon);
+                modal.find('[name="alamat"]').val(alamat);
+            },
+            '#modal-hapus': () => {
+                modal.find('form').attr('action', url(`${requestCRUD}${id}`));
+                modal.find('#nip').text(nip);
+            }
+        };
 
-    const kirimDataUbah = (response, modalId) => {
-        const modal = $(modalId);
-        modal.find('form').attr('action', url(`${requestCRUD}${response.id}`));
-        modal.find('[name="id"]').val(response.id);
-        modal.find('[name="nip"]').val(response.nip);
-        modal.find('[name="nik"]').val(response.nik);
-        modal.find('[name="nama"]').val(response.nama);
-        modal.find('[name="departemen_id"]').val(response.departemen_id);
-        ambilData(requestBagian, response.departemen_id, (bagianResponse) => {
-            kirimDataBagian(bagianResponse, modal.find('[name="bagian_id"]'));
-            modal.find('[name="bagian_id"]').val(response.bagian_id);
-        });
-        modal.find('[name="status_id"]').val(response.status_id);
-        modal.find('[name="nomor_telepon"]').val(response.nomor_telepon);
-        modal.find('[name="alamat"]').val(response.alamat);
-    };
-
-    const kirimDataHapus = (response, modalId) => {
-        const modal = $(modalId);
-        modal.find('form').attr('action', url(`${requestCRUD}${response.id}`));
-        modal.find('#nip').text(response.nip);
+        actions[modalId]?.();
     };
 
     const kirimDataBagian = (response, bagianSelect) => {

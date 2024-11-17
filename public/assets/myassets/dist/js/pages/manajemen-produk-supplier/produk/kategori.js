@@ -12,52 +12,46 @@ $(function () {
 
     const dataTable = $("#table-kategori").DataTable(konfigurasiDataTable);
     const request = '/manajemen-produk-supplier/produk/kategori/';
-    const cache = {};
 
     $(document).on('click', '[data-target^="#modal-"]', function () {
         const id = $(this).data('id');
         const modalId = $(this).data('target');
+        tampilkanLoading(modalId);
         ambilData(id, modalId);
     });
 
     const ambilData = (id, modalId) => {
-        if (cache[id]) {
-            kirimData(modalId, cache[id]);
-        } else {
-            tampilkanLoading(modalId);
-            $.ajax({
-                url: url(`${request}${id}`),
-                type: 'GET',
-                success: (response) => {
-                    cache[id] = response;
-                    kirimData(modalId, response);
-                },
-                error: () => tampilkanError(modalId),
-                complete: () => hilangkanLoading(modalId)
-            });
-        }
+        $.ajax({
+            url: url(`${request}${id}`),
+            type: 'GET',
+            success: (response) => isiModal(modalId, response),
+            error: () => tampilkanError(modalId),
+            complete: () => hilangkanLoading(modalId)
+        });
     };
 
-    const kirimData = (modalId, data) => {
+    const isiModal = (modalId, response) => {
         const modal = $(modalId);
-        const { id, kode, nama, deskripsi } = data;
-        switch (modalId) {
-            case '#modal-detail':
+        const { id, kode, nama, deskripsi } = response;
+        const actions = {
+            '#modal-detail': () => {
                 modal.find('#kode').text(kode);
                 modal.find('#nama').text(nama);
                 modal.find('#deskripsi').text(deskripsi || '-');
-                break;
-            case '#modal-ubah':
+            },
+            '#modal-ubah': () => {
                 modal.find('form').attr('action', url(`${request}${id}`));
                 modal.find('[name="id"]').val(id);
                 modal.find('[name="nama"]').val(nama);
                 modal.find('[name="deskripsi"]').val(deskripsi);
-                break;
-            case '#modal-hapus':
+            },
+            '#modal-hapus': () => {
                 modal.find('form').attr('action', url(`${request}${id}`));
                 modal.find('#kode').text(kode);
-                break;
-        }
+            }
+        };
+
+        actions[modalId]?.();
     };
 
     const tampilkanLoading = (modalId) => {
@@ -79,8 +73,4 @@ $(function () {
         modalUbah.find('form').attr('action', url(`${request}${id}`));
         setTimeout(() => modalUbah.modal('show'), 500);
     }
-
-    $(document).on('hide.bs.modal', '.modal', function () {
-        setTimeout(() => $(this).find('.is-invalid').removeClass('is-invalid'), 500);
-    });
 });
