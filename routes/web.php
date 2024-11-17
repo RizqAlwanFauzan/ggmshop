@@ -6,6 +6,7 @@ use App\Http\Controllers\ManajemenPenerima\DepartemenBagian\BagianController;
 use App\Http\Controllers\ManajemenPenerima\PenerimaController;
 use App\Http\Controllers\ManajemenPenerima\StatusController;
 use App\Http\Controllers\ManajemenProdukSupplier\Produk\KategoriController;
+use App\Http\Controllers\ManajemenProdukSupplier\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -51,4 +52,10 @@ Route::prefix('manajemen-produk-supplier')->name('manajemen-produk-supplier.')->
         Route::put('/kategori/{kategori}', [KategoriController::class, 'update'])->name('kategori.update');
         Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
     });
+
+    Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
+    Route::get('/supplier/{supplier}', [SupplierController::class, 'show'])->name('supplier.show');
+    Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier.store');
+    Route::put('/supplier/{supplier}', [SupplierController::class, 'update'])->name('supplier.update');
+    Route::delete('/supplier/{supplier}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
 });
