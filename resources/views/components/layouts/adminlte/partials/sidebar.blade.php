@@ -69,17 +69,25 @@
                     </a>
                 </li>
                 <li class="nav-header">Manajemen Produk & Supplier</li>
-                <li class="nav-item {{ request()->routeIs('manajemen-produk-supplier.produk.kategori') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->routeIs('manajemen-produk-supplier.produk.kategori') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->routeIs(['manajemen-produk-supplier.produk-kategori.produk', 'manajemen-produk-supplier.produk-kategori.kategori']) ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->routeIs(['manajemen-produk-supplier.produk-kategori.produk', 'manajemen-produk-supplier.produk-kategori.kategori']) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-box-open"></i>
                         <p>
-                            Produk
+                            Produk & Kategori
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('manajemen-produk-supplier.produk.kategori') }}" class="nav-link {{ request()->routeIs('manajemen-produk-supplier.produk.kategori') ? 'active' : '' }}">
+                            <a href="{{ route('manajemen-produk-supplier.produk-kategori.produk') }}" class="nav-link {{ request()->routeIs('manajemen-produk-supplier.produk-kategori.produk') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Produk</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('manajemen-produk-supplier.produk-kategori.kategori') }}" class="nav-link {{ request()->routeIs('manajemen-produk-supplier.produk-kategori.kategori') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kategori</p>
                             </a>

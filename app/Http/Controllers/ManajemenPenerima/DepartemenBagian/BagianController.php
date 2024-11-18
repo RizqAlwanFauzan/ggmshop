@@ -48,6 +48,10 @@ class BagianController extends Controller
 
     public function destroy(Bagian $bagian): RedirectResponse
     {
+        if ($bagian->penerima()->exists()) {
+            return redirect()->back()->with('warning', 'Data bagian tidak bisa dihapus karena digunakan pada penerima');
+        }
+
         $bagian->delete();
         return redirect()->back()->with('success', 'Data bagian berhasil dihapus');
     }

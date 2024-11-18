@@ -5,7 +5,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Tambah Kategori</h3>
                 </div>
-                <form action="{{ route('manajemen-produk-supplier.produk.kategori') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('manajemen-produk-supplier.produk-kategori.kategori') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -160,6 +160,6 @@
     </div>
 
     @section('js')
-        <script src="{{ asset('assets/myassets/dist/js/pages/manajemen-produk-supplier/produk/kategori.js') }}"></script>
+        <script src="{{ asset('assets/myassets/dist/js/pages/manajemen-produk-supplier/produk-kategori/kategori.js') }}"></script>
     @endsection
 </x-layouts.app>

@@ -11,7 +11,7 @@ $(function () {
     };
 
     const dataTable = $("#table-kategori").DataTable(konfigurasiDataTable);
-    const request = '/manajemen-produk-supplier/produk/kategori/';
+    const request = '/manajemen-produk-supplier/produk-kategori/kategori/';
 
     $(document).on('click', '[data-target^="#modal-"]', function () {
         const id = $(this).data('id');

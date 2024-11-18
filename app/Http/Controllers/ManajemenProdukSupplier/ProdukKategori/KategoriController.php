@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\ManajemenProdukSupplier\Produk;
+namespace App\Http\Controllers\ManajemenProdukSupplier\ProdukKategori;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ManajemenProdukSupplier\Produk\Kategori\StoreKategoriRequest;
-use App\Http\Requests\ManajemenProdukSupplier\Produk\Kategori\UpdateKategoriRequest;
+use App\Http\Requests\ManajemenProdukSupplier\ProdukKategori\Kategori\StoreKategoriRequest;
+use App\Http\Requests\ManajemenProdukSupplier\ProdukKategori\Kategori\UpdateKategoriRequest;
 use App\Models\Kategori;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +20,7 @@ class KategoriController extends Controller
             'kategori' => $kategori
         ];
 
-        return view('pages.manajemen-produk-supplier.produk.kategori', $data);
+        return view('pages.manajemen-produk-supplier.produk-kategori.kategori', $data);
     }
 
     public function show(Kategori $kategori): JsonResponse
@@ -44,6 +44,10 @@ class KategoriController extends Controller
 
     public function destroy(Kategori $kategori): RedirectResponse
     {
+        if ($kategori->produk()->exists()) {
+            return redirect()->back()->with('warning', 'Data kategori tidak bisa dihapus karena digunakan pada produk');
+        }
+
         $kategori->delete();
         return redirect()->back()->with('success', 'Data kategori berhasil dihapus');
     }

@@ -44,6 +44,10 @@ class SupplierController extends Controller
 
     public function destroy(Supplier $supplier): RedirectResponse
     {
+        if ($supplier->produk()->exists()) {
+            return redirect()->back()->with('warning', 'Data supplier tidak bisa dihapus karena digunakan pada produk');
+        }
+
         $supplier->delete();
         return redirect()->back()->with('success', 'Data supplier berhasil dihapus');
     }
