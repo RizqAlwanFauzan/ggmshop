@@ -46,6 +46,8 @@ class DepartemenController extends Controller
     {
         if ($departemen->bagian()->exists()) {
             return redirect()->back()->with('warning', 'Data departemen tidak bisa dihapus karena digunakan pada bagian');
+        } elseif ($departemen->penerima()->exists()) {
+            return redirect()->back()->with('warning', 'Data departemen tidak bisa dihapus karena digunakan pada penerima');
         }
 
         $departemen->delete();

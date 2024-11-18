@@ -5,7 +5,8 @@ use App\Http\Controllers\ManajemenPenerima\DepartemenBagian\DepartemenController
 use App\Http\Controllers\ManajemenPenerima\DepartemenBagian\BagianController;
 use App\Http\Controllers\ManajemenPenerima\PenerimaController;
 use App\Http\Controllers\ManajemenPenerima\StatusController;
-use App\Http\Controllers\ManajemenProdukSupplier\Produk\KategoriController;
+use App\Http\Controllers\ManajemenProdukSupplier\ProdukKategori\KategoriController;
+use App\Http\Controllers\ManajemenProdukSupplier\ProdukKategori\ProdukController;
 use App\Http\Controllers\ManajemenProdukSupplier\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +46,13 @@ Route::prefix('manajemen-penerima')->name('manajemen-penerima.')->group(function
 });
 
 Route::prefix('manajemen-produk-supplier')->name('manajemen-produk-supplier.')->group(function () {
-    Route::prefix('produk')->name('produk.')->group(function () {
+    Route::prefix('produk-kategori')->name('produk-kategori.')->group(function () {
+        Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
+        Route::get('/produk/{produk}', [ProdukController::class, 'show'])->name('produk.show');
+        Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
+        Route::put('/produk/{produk}', [ProdukController::class, 'update'])->name('produk.update');
+        Route::delete('/produk/{produk}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+
         Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
         Route::get('/kategori/{kategori}', [KategoriController::class, 'show'])->name('kategori.show');
         Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\ManajemenProdukSupplier\Produk\Kategori;
+namespace App\Http\Requests\ManajemenProdukSupplier\ProdukKategori\Kategori;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreKategoriRequest extends FormRequest
+class UpdateKategoriRequest extends FormRequest
 {
-    protected $errorBag = 'store';
+    protected $errorBag = 'update';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,12 @@ class StoreKategoriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama'      => 'required|string|max:255|unique:kategori,nama',
+            'nama'      => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('kategori', 'nama')->ignore($this->kategori->id)
+            ],
             'deskripsi' => 'nullable|string|max:500'
         ];
     }

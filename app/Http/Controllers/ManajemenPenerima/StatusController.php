@@ -44,6 +44,10 @@ class StatusController extends Controller
 
     public function destroy(Status $status): RedirectResponse
     {
+        if ($status->penerima()->exists()) {
+            return redirect()->back()->with('warning', 'Data status tidak bisa dihapus karena digunakan pada penerima');
+        }
+
         $status->delete();
         return redirect()->back()->with('success', 'Data status berhasil dihapus');
     }
