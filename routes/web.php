@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManajemenPenerima\DepartemenBagian\DepartemenController;
 use App\Http\Controllers\ManajemenPenerima\DepartemenBagian\BagianController;
+use App\Http\Controllers\ManajemenPenerima\KuotaController;
 use App\Http\Controllers\ManajemenPenerima\PenerimaController;
 use App\Http\Controllers\ManajemenPenerima\StatusController;
 use App\Http\Controllers\ManajemenProdukSupplier\ProdukKategori\KategoriController;
@@ -23,6 +24,12 @@ Route::prefix('manajemen-penerima')->name('manajemen-penerima.')->group(function
     Route::put('/penerima/{penerima}', [PenerimaController::class, 'update'])->name('penerima.update');
     Route::delete('/penerima/{penerima}', [PenerimaController::class, 'destroy'])->name('penerima.destroy');
     Route::get('/bagian-by-departemen/{departemen}', [PenerimaController::class, 'getBagianByDepartemen'])->name('bagian.by.departemen');
+
+    Route::get('/kuota', [KuotaController::class, 'index'])->name('kuota');
+    Route::get('/kuota/{kuota}', [KuotaController::class, 'show'])->name('kuota.show');
+    Route::post('/kuota', [KuotaController::class, 'store'])->name('kuota.store');
+    Route::put('/kuota/{kuota}', [KuotaController::class, 'update'])->name('kuota.update');
+    Route::delete('/kuota/{kuota}', [KuotaController::class, 'destroy'])->name('kuota.destroy');
 
     Route::prefix('departemen-bagian')->name('departemen-bagian.')->group(function () {
         Route::get('/departemen', [DepartemenController::class, 'index'])->name('departemen');

@@ -29,4 +29,9 @@ class Produk extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+
+    public function kuota(): BelongsTo
+    {
+        return $this->belongsTo(Kuota::class);
+    }
 }
