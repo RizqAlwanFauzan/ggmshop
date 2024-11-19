@@ -27,4 +27,9 @@ class Penerima extends Model
     {
         return $this->belongsTo(Status::class);
     }
+
+    public function kuota(): BelongsTo
+    {
+        return $this->belongsTo(Kuota::class);
+    }
 }

@@ -37,6 +37,12 @@
                         <p>Penerima</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('manajemen-penerima.kuota') }}" class="nav-link {{ request()->routeIs('manajemen-penerima.kuota') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-balance-scale"></i>
+                        <p>Kuota</p>
+                    </a>
+                </li>
                 <li class="nav-item {{ request()->routeIs(['manajemen-penerima.departemen-bagian.departemen', 'manajemen-penerima.departemen-bagian.bagian']) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->routeIs(['manajemen-penerima.departemen-bagian.departemen', 'manajemen-penerima.departemen-bagian.bagian']) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-sitemap"></i>
